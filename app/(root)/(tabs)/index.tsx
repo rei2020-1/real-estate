@@ -11,7 +11,7 @@ export default function Index() {
       }}
     >
 
-      <Text className="font-bold  my-10 font-rubik text-3xl">Welcome to the Real Estate App</Text>
+      <Text className="font-bold  my-10 font-rubik text-3xl">Welcome to the ReState</Text>
 
       <Link href="/sign-in">
         <Text>Sign In</Text>
