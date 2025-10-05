@@ -28,10 +28,6 @@ export async function login(){
     try {
 
         const redirectUri = Linking.createURL('/')
-        // Print the exact redirect URI so you can add it to Google Cloud Console
-        // and Appwrite OAuth provider's allowed redirect URIs. This helps
-        // diagnose redirect_uri_mismatch errors.
-        console.log('[appwrite] Redirect URI ->', redirectUri)
 
         const response = await account.createOAuth2Token(
             OAuthProvider.Google, 
@@ -79,19 +75,20 @@ export async function logout(){
 }
 
 export async function getCurrentUser() {
-    try {
-        
-        const response = await account.get()    
-        if(response.$id){
-            const userAvatar = avatar.getInitials({ name: response.name})
-            return {
-                ...response,
-                avatar: userAvatar.toString()
-            }
-        }
+  try {
+    const result = await account.get();
+    if (result.$id) {
+      const userAvatar = avatar.getInitials(result.name);
 
-    } catch (error) {
-        console.error(error)
-        return null
+      return {
+        ...result,
+        avatar: userAvatar.toString(),
+      };
     }
+
+    return null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }
